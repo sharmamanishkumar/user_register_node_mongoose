@@ -1,0 +1,7 @@
+{
+    "env":{
+        "MONGO_ATLAS_PW":"manish9090",
+        "JWT_KEY":"secret",
+        "PORT":5000
+    }
+}
