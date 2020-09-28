@@ -4,11 +4,16 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const userRoutes = require("./api/router/users");
 const userDetails = require("./api/router/myusers");
+const countryRuter=require("./api/router/countrystate")
+const contactRouter= require("./api/router/contact")
+const massageRouter = require("./api/router/massege")
+
 const app = express();
 
 mongoose.connect(
       "mongodb+srv://manish:"+
-      process.env.MONGO_ATLAS_PW +"@cluster0.lvk1u.mongodb.net/myuser?retryWrites=true&w=majority",
+      process.env.MONGO_ATLAS_PW +
+      "@cluster0.lvk1u.mongodb.net/myuser?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -37,6 +42,9 @@ mongoose.connect(
 
   app.use("/user",userRoutes)
   app.use("/userdetails",userDetails)
+  app.use("/country",countryRuter)
+  app.use("/contact",contactRouter)
+  app.use("/massage",massageRouter)
 
   app.use((req, res, next) => {
     const error = new Error("i am not found");
