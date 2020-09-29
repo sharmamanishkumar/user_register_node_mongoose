@@ -10,11 +10,11 @@ const massageRouter = require("./api/router/massege")
 
 const app = express();
 
-mongoose.connect(
+mongoose.connect( process.env.MOGNO_CLUSTER_APP ||
       "mongodb+srv://manish:"+
       process.env.MONGO_ATLAS_PW +
       "@cluster0.lvk1u.mongodb.net/myuser?retryWrites=true&w=majority",
-    {
+      {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
