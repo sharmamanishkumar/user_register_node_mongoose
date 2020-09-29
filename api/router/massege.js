@@ -18,7 +18,7 @@ router.post("/",(req,res,next)=>{
         res.status(200).json({
             message:"Inserted Contact",
             MassegeDetail:{//Respond
-                massege:result.massege,
+                massege:result.massage,
                 date:result.date,
                 name:result.name,         
                 mobile:result.mobile       
@@ -32,4 +32,40 @@ router.post("/",(req,res,next)=>{
         })
     })
 })
+
+router.get("/", (req, res, next) => {
+    MassegeDetail.find()
+      .select()
+      .exec()
+      .then((result) => {
+        // console.log(result,'oiuytre');
+        const response = {
+          count: result.length,
+          message: "all Massage",
+          users: result.map((res) => {
+            return {
+              _id: res._id,
+              massege:res.massege,
+              date:res.date,
+              name:res.name,         
+              mobile:res.mobile ,
+               requsted: {
+                type: "GET",
+                url: "http://localhost:5000/massage/" + res._id,
+              },
+            };
+          }),
+        };
+        res.status(200).json(response);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({
+          error: err,
+        });
+      });
+  });
+
+
+
 module.exports = router;
