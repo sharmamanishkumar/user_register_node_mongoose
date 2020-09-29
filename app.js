@@ -46,6 +46,9 @@ mongoose.connect(
   app.use("/contact",contactRouter)
   app.use("/massage",massageRouter)
 
+  app.use('/',(req,res)=>{
+    res.send('Welcome sir ')
+  })
   app.use((req, res, next) => {
     const error = new Error("i am not found");
     error.status = 404;
