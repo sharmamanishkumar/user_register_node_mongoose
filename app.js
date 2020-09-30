@@ -7,6 +7,7 @@ const userDetails = require("./api/router/myusers");
 const countryRuter=require("./api/router/countrystate")
 const contactRouter= require("./api/router/contact")
 const massageRouter = require("./api/router/massege")
+const ProdustRouter = require("./api/router/products")
 
 const app = express();
 
@@ -45,6 +46,7 @@ mongoose.connect( process.env.MOGNO_CLUSTER_APP ||
   app.use("/country",countryRuter)
   app.use("/contact",contactRouter)
   app.use("/massage",massageRouter)
+  app.use("/product",ProdustRouter)
 
   app.use('/',(req,res)=>{
     res.send('Welcome sir ')

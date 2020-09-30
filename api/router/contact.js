@@ -16,9 +16,9 @@ router.post("/",(req,res,next)=>{
     })
     contact.save().then((result)=>{
         res.status(200).json({
-            message:"Inserted Contact",
-            ContactDetail:{//Respond
-                countryName:result.countryName,
+            message:"Inserted Contact",//print Massage
+            data:{
+                yourName:result.yourName,
                 mobile:result.mobile,
                 city:result.city,         
                 date:result.date       
@@ -32,4 +32,67 @@ router.post("/",(req,res,next)=>{
         })
     })
 })
+
+router.get("/", (req, res, next) => {
+    ContactDetail.find()
+      .select()
+      .exec()
+      .then((result) => {
+        // console.log(result,'oiuytre');
+        const response = {
+          count: result.length,
+          message: "all Massage",
+          users: result.map((res) => {
+            return {
+              _id: res._id,
+              yourName:res.yourName,
+              mobile:res.mobile,
+              city:res.city,         
+              date:res.date ,
+            };
+          }),
+        };
+        res.status(200).json(response);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({
+          error: err,
+        });
+      });
+  });
+
+  router.get("/", (req, res, next) => {
+    MassegeDetail.find()
+      .select()
+      .exec()
+      .then((result) => {
+        // console.log(result,'oiuytre');
+        const response = {
+          count: result.length,
+          message: "all Massage",
+          users: result.map((res) => {
+            return {
+              _id: res._id,
+              massege:res.massege,
+              date:res.date,
+              name:res.name,         
+              mobile:res.mobile ,
+              
+            };
+          }),
+        };
+        res.status(200).json(response);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({
+          error: err,
+        });
+      });
+  });
+
+
+
+
 module.exports = router;

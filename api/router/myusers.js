@@ -36,4 +36,37 @@ router.post("/",(req,res,next)=>{
         })
     })
 })
+
+router.get("/", (req, res, next) => {
+    Userdetail.find()
+      .select()
+      .exec()
+      .then((result) => {
+        // console.log(result,'oiuytre');
+        const response = {
+          count: result.length,
+          message: "Get All User",
+          users: result.map((res) => {
+            return {
+              _id: res._id,
+              firstname:res.firstname,
+              lastname:res.lastname,
+              email:res.email,
+              city:res.city,
+              mobileno:res.mobileno,
+              dob:res.dob,
+            };
+          }),
+        };
+        res.status(200).json(response);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({
+          error: err,
+        });
+      });
+  });
+
+
 module.exports = router;

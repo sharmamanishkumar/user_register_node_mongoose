@@ -29,4 +29,33 @@ router.post("/",(req,res,next)=>{
         })
     })
 })
+
+
+router.get("/", (req, res, next) => {
+    Country.find()
+      .select()
+      .exec()
+      .then((result) => {
+        // console.log(result,'oiuytre');
+        const response = {
+          count: result.length,
+          message: "Get All Details",
+          users: result.map((res) => {
+            return {
+              _id: res._id,
+              countryName:res.countryName,
+              stateName:res.stateName  
+            };
+          }),
+        };
+        res.status(200).json(response);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({
+          error: err,
+        });
+      });
+  });
+
 module.exports = router;
